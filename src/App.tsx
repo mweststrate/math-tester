@@ -36,8 +36,11 @@ export default function App() {
 function TheEnd() {
   const { state, update } = useAll();
   return (
-    <div>
-      Done!
+    <div >
+      Completed on level {11 - (state.delay / 1000)}! Score:
+      <p style={{fontSize: "3em"}}>
+      {Math.round(100*(state.score / (state.questionCount * 2)))/10}
+      </p>
       <Button
         onClick={update(state => {
           resetState(state);

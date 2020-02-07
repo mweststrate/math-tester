@@ -1,5 +1,5 @@
 import { useAll, selectNextQuestion, resetState, Question } from "./state";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import * as React from "react";
 
@@ -12,17 +12,13 @@ export default function QuestionC() {
   const [input, setInput] = useState("");
   const handleRef = React.useRef<any>(0);
   const lapsed = useAnimationFrame([q]);
+  const onTime = useRef(true);
 
   const toast = useToast();
 
   React.useEffect(() => {
     handleRef.current = setTimeout(() => {
-      toast({
-        title: "Too slow",
-        status: "error",
-        duration: 1000,
-        isClosable: false
-      });
+      onTime.current = false;
     }, state.delay);
 
     return () => {
@@ -44,7 +40,9 @@ export default function QuestionC() {
           isClosable: false
         });
         update(state => {
+          state.score += onTime.current ? 2 : 1
           selectNextQuestion(state);
+          onTime.current = true;
         })();
       } else {
         toast({
@@ -53,6 +51,9 @@ export default function QuestionC() {
           duration: 1000,
           isClosable: false
         });
+        update(state => {
+          state.score -= 0.5
+        })();
       }
       setInput("");
     } else {
@@ -80,7 +81,13 @@ export default function QuestionC() {
       </div>
       {renderQuestion(q)}
       <hr />
-      {input}_<br />
+      <div style={{fontSize: "3em"}}>
+      {input}_{" "}
+      <Button  onClick={() => {
+        setInput("")
+      }}>🧹</Button>
+      </div>
+      <br />
       {new Array(10).fill(true, 0, 10).map((_, nr) => (
         <Button
           key={nr}
@@ -92,10 +99,6 @@ export default function QuestionC() {
           {(nr + 1) % 10}
         </Button>
       ))}
-      <Button width={50} height={50} bg="darkred" onClick={() => {
-        setInput("")
-      }}>🧹
-        </Button>
       <hr />
       <Button
         onClick={update(state => {

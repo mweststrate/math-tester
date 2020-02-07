@@ -39,6 +39,39 @@ const generators = {
       });
     }
   },
+  add(nr: number, questions: Question[]) {
+    for (let i = 1; i < nr; i++) {
+      questions.push({
+        type: "add",
+        question: `${i} + ${nr} = ?`,
+        answer: i + nr
+      });
+      questions.push({
+        type: "add",
+        question: `${nr} + ${i} = ?`,
+        answer: nr + i
+      });
+    }
+  },
+  subtract(nr: number, questions: Question[]) {
+    for (let i = 1; i < nr; i++) {
+      questions.push({
+        type: "subtract",
+        question: `${nr} - ${i} = ?`,
+        answer: nr - i
+      });
+      questions.push({
+        type: "subtract",
+        question: `${nr+i} - ${nr} = ?`,
+        answer: i
+      });
+      questions.push({
+        type: "subtract",
+        question: `${nr+i} - ${i} = ?`,
+        answer: nr
+      });
+    }
+  },
   "number bonds"(nr: number, questions: Question[]) {
     for (let i = 0; i <= Math.floor(nr / 2); i++) {
       questions.push({
@@ -68,6 +101,7 @@ export interface State {
   questionCount: number;
   delay: number;
   selected?: Question;
+  score: number;
 }
 
 export interface Question {
@@ -85,7 +119,8 @@ export function initialState(): State {
     questionTypes: { ...qtypes },
     questionCount: 0,
     questions: [],
-    delay: 5000
+    delay: 5000,
+    score: 0
   };
 }
 
@@ -97,6 +132,10 @@ export function generateQuestions(state: State) {
         if (selected) (generators as any)[q](x + 1, state.questions);
       });
   });
+  // randomly remove questions until we have 20
+  while(state.questions.length > 20) {
+    state.questions.splice(Math.floor(Math.random() * state.questions.length), 1)
+  }
   state.questionCount = state.questions.length;
 }
 
@@ -121,6 +160,7 @@ export function useAll() {
 export function resetState(state: State) {
   Object.assign(state, {
     step: "configure",
-    questions: []
+    questions: [],
+    score: 0
   });
 }
