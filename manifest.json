@@ -1,0 +1,13 @@
+{
+  "name": "Maths Tester",
+  "short_name": "Maths Tester",
+  "start_url": "public/index.html",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fff",
+  "theme_color": "#3f51b5",
+  "description": "Maths Tester",
+  "dir": "ltr",
+  "lang": "en-US"
+}
