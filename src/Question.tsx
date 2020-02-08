@@ -36,6 +36,7 @@ export default function QuestionC() {
   }, [q]);
 
   const onClick = (answer: number) => {
+
     // TODO: use strings instead of numbers
     const newInput = input + ("" + answer);
     console.log(newInput, ("" + q.answer).length);
@@ -120,7 +121,6 @@ export default function QuestionC() {
             <Button
               key={nr}
               onTouchStart={() => onClick(nr)}
-              onMouseDown={() => onClick(nr)}
               width={"100%"}
               height={"12vh"}
               variantColor="pink"
@@ -135,9 +135,6 @@ export default function QuestionC() {
             onTouchStart={() => {
               setInput("");
             }}
-            onMouseDown={() => {
-              setInput("");
-            }}
             width={"100%"}
             height={"12vh"}
             variant="unstyled"
@@ -149,7 +146,6 @@ export default function QuestionC() {
           <Button
             key={0}
             onTouchStart={() => onClick(0)}
-            onMouseDown={() => onClick(0)}
             width={"100%"}
             height={"12vh"}
             variantColor="pink"
