@@ -36,7 +36,7 @@ export default function App() {
 function TheEnd() {
   const { state, update } = useAll();
   return (
-    <Box padding={5} bg="pink" color="white" height="100vh">
+    <Box padding={5} color="black" height="100vh">
       Completed on level {11 - (state.delay / 1000)}! Score:
       <p style={{fontSize: "3em"}}>
       {Math.round(100*(state.score / (state.questionCount * 2)))}

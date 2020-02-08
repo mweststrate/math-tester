@@ -56,6 +56,8 @@ export default function Configure() {
           <Radio value="2000">2 seconds</Radio>
           <Radio value="5000">Five seconds</Radio>
           <Radio value="10000">10 secs</Radio>
+          <Radio value="15000">15 secs</Radio>
+          <Radio value="15000">20 secs</Radio>
           <Radio value="60000">Minute</Radio>
         </RadioGroup>
         <Button
