@@ -2,7 +2,7 @@ import * as React from "react";
 import "./styles.css";
 import produce from "immer";
 import { useState, useCallback } from "react";
-import { ThemeProvider, theme } from "@chakra-ui/core";
+import { ThemeProvider, theme, Box } from "@chakra-ui/core";
 import { Button } from "@chakra-ui/core";
 import { initialState, State, Context, useAll, resetState } from "./state";
 import Configure from "./Configure";
@@ -36,10 +36,10 @@ export default function App() {
 function TheEnd() {
   const { state, update } = useAll();
   return (
-    <div >
+    <Box padding={5} bg="pink" color="white" height="100vh">
       Completed on level {11 - (state.delay / 1000)}! Score:
       <p style={{fontSize: "3em"}}>
-      {Math.round(100*(state.score / (state.questionCount * 2)))/10}
+      {Math.round(100*(state.score / (state.questionCount * 2)))}
       </p>
       <Button
         onClick={update(state => {
@@ -48,6 +48,6 @@ function TheEnd() {
       >
         Start again
       </Button>
-    </div>
+    </Box>
   );
 }
