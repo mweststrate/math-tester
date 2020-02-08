@@ -3,7 +3,16 @@ import { useState, useRef } from "react";
 
 import * as React from "react";
 
-import { useToast, Box, Progress, Button } from "@chakra-ui/core";
+import {
+  useToast,
+  Box,
+  Progress,
+  Button,
+  SimpleGrid,
+  Stack,
+  Text,
+  Flex
+} from "@chakra-ui/core";
 import { useAnimationFrame } from "./utils";
 
 export default function QuestionC() {
@@ -40,7 +49,7 @@ export default function QuestionC() {
           isClosable: false
         });
         update(state => {
-          state.score += onTime.current ? 2 : 1
+          state.score += onTime.current ? 2 : 1;
           selectNextQuestion(state);
           onTime.current = true;
         })();
@@ -52,7 +61,7 @@ export default function QuestionC() {
           isClosable: false
         });
         update(state => {
-          state.score -= 0.5
+          state.score -= 0.5;
         })();
       }
       setInput("");
@@ -62,81 +71,120 @@ export default function QuestionC() {
   };
 
   return (
-    <Box>
-      <Progress
-        value={Math.round(
-          ((state.questionCount - state.questions.length) /
-            state.questionCount) *
-            100
-        )}
-      />
-      <div style={{ overflow: "hidden" }}>
-        <div
-          style={{
-            width: Math.round((lapsed / state.delay) * 100) + "%",
-            height: 8,
-            backgroundColor: "red"
-          }}
+    <Stack height="100vh" spacing={0}>
+      <Stack flexGrow={2} spacing={0}>
+        <Stack isInline justify="center" align="center" spacing="8">
+          <Button
+            variant="unstyled"
+            onClick={update(state => {
+              resetState(state);
+            })}
+          >
+            Back
+          </Button>
+          <Text>
+            {`${state.questionCount - state.questions.length} / ${
+              state.questionCount
+            }`}
+          </Text>
+        </Stack>
+        <Progress
+          color="pink"
+          value={Math.round(
+            ((state.questionCount - state.questions.length) /
+              state.questionCount) *
+              100
+          )}
         />
-      </div>
-      {renderQuestion(q)}
-      <hr />
-      <div style={{fontSize: "3em"}}>
-      {input}_{" "}
-      <Button  onClick={() => {
-        setInput("")
-      }}>🧹</Button>
-      </div>
-      <br />
-      {new Array(10).fill(true, 0, 10).map((_, nr) => (
-        <Button
-          key={nr}
-          onClick={() => onClick((nr + 1) % 10)}
-          m={5}
-          width={50}
-          height={50}
-        >
-          {(nr + 1) % 10}
-        </Button>
-      ))}
-      <hr />
-      <Button
-        onClick={update(state => {
-          resetState(state);
-        })}
-      >
-        Start again
-      </Button>
-    </Box>
+        <Box>
+          <Box
+            width={
+              Math.min(100, Math.round((lapsed / state.delay) * 100)) + "%"
+            }
+            height={3}
+            background="pink"
+          />
+        </Box>
+        <Flex align="center" justify="center" flexGrow={1} padding={2}>
+          {renderQuestion(
+            q,
+            <Text color="red" display="inline">
+              {input}_
+            </Text>
+          )}
+        </Flex>
+      </Stack>
+      <Box flexGrow={0}>
+        <SimpleGrid columns={3} spacing={0} p={5}>
+          {new Array(10).fill(true, 1, 10).map((_, nr) => (
+            <Button
+              key={nr}
+              onClick={() => onClick(nr)}
+              width={"100%"}
+              height={"12vh"}
+              variantColor="pink"
+              variant="solid"
+              fontSize="1.5em"
+            >
+              {nr}
+            </Button>
+          ))}
+          <Button
+            key={"erase"}
+            onClick={() => {
+              setInput("");
+            }}
+            width={"100%"}
+            height={"12vh"}
+            variant="solid"
+            fontSize="1.5em"
+            color="grey"
+          >
+            {"<"}
+          </Button>
+          <Button
+            key={0}
+            onClick={() => onClick(0)}
+            width={"100%"}
+            height={"12vh"}
+            variantColor="pink"
+            variant="solid"
+            fontSize="1.5em"
+          >
+            {0}
+          </Button>
+        </SimpleGrid>
+      </Box>
+    </Stack>
   );
 }
 
-function renderQuestion(q: Question) {
+function renderQuestion(q: Question, input: React.ReactNode) {
   if (q.type !== "number bonds") {
-    return <div style={{ margin: "20 auto", fontSize: "3em" }}>{q.question}</div>
+    return (
+      <div style={{ margin: "20 auto", fontSize: "3em" }}>
+        {q.question}
+        {input}
+      </div>
+    );
   }
   // TODO: other question types
-  const parts = q.question.split(",");
+  let parts: any[] = q.question.split(",");
+  // @ts-ignore
+  parts = parts.map(part => (part === "?" ? (input as any) : part));
   return (
-    <div>
-      <table style={{ margin: "auto", fontSize: "3em" }}>
-        <tbody>
-          <tr>
-            <td
-              colSpan={2}
-              style={{ borderBottom: "2px solid black", padding: 20 }}
-            >
-              {parts[2]}
-            </td>
-          </tr>
-          <tr>
-            <td style={{ borderRight: "2px solid black", padding: 20 }}>
-              {parts[0]}
-            </td>
-            <td style={{ padding: 20 }}>{parts[1]}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <SimpleGrid columns={2} fontSize="2em" gridTemplateRows="40% 40%">
+      <Box
+        gridColumn="1 / 3"
+        borderBottom="1px solid purple"
+        textAlign="center"
+      >
+        {parts[2]}
+      </Box>
+      <Box padding={2} borderRight="1px solid purple">
+        {parts[0]}
+      </Box>
+      <Box padding={2}>{parts[1]}</Box>
+    </SimpleGrid>
   );
 }

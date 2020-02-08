@@ -15,12 +15,12 @@ const generators = {
     for (let i = 0; i < 12; i++) {
       questions.push({
         type: "multiply",
-        question: `${i} x ${nr} = ?`,
+        question: `${i} x ${nr} = `,
         answer: nr * i
       });
       questions.push({
         type: "multiply",
-        question: `${i} x ${nr} = ?`,
+        question: `${i} x ${nr} = `,
         answer: nr * i
       });
     }
@@ -29,12 +29,12 @@ const generators = {
     for (let i = 1; i < 10; i++) {
       questions.push({
         type: "division",
-        question: `${i * nr} ÷ ${nr} = ?`,
+        question: `${i * nr} ÷ ${nr} = `,
         answer: i
       });
       questions.push({
         type: "division",
-        question: `${i * nr} ÷ ${i} = ?`,
+        question: `${i * nr} ÷ ${i} = `,
         answer: nr
       });
     }
@@ -43,12 +43,12 @@ const generators = {
     for (let i = 1; i < nr; i++) {
       questions.push({
         type: "add",
-        question: `${i} + ${nr} = ?`,
+        question: `${i} + ${nr} = `,
         answer: i + nr
       });
       questions.push({
         type: "add",
-        question: `${nr} + ${i} = ?`,
+        question: `${nr} + ${i} = `,
         answer: nr + i
       });
     }
@@ -57,17 +57,17 @@ const generators = {
     for (let i = 1; i < nr; i++) {
       questions.push({
         type: "subtract",
-        question: `${nr} - ${i} = ?`,
+        question: `${nr} - ${i} = `,
         answer: nr - i
       });
       questions.push({
         type: "subtract",
-        question: `${nr+i} - ${nr} = ?`,
+        question: `${nr+i} - ${nr} = `,
         answer: i
       });
       questions.push({
         type: "subtract",
-        question: `${nr+i} - ${i} = ?`,
+        question: `${nr+i} - ${i} = `,
         answer: nr
       });
     }

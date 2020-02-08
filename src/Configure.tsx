@@ -20,7 +20,7 @@ export default function Configure() {
           <Button
             key={qtype}
             variant={state.questionTypes[qtype] ? "solid" : "ghost"}
-            variantColor="teal"
+            variantColor="purple"
             onClick={update(state => {
               state.questionTypes[qtype] = !state.questionTypes[qtype];
             })}
@@ -34,7 +34,7 @@ export default function Configure() {
           <Button
             key={nr}
             variant={state.selectedNumbers[nr] ? "solid" : "ghost"}
-            variantColor="teal"
+            variantColor="purple"
             onClick={update(state => {
               state.selectedNumbers[nr] = !state.selectedNumbers[nr];
             })}
