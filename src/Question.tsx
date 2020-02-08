@@ -136,7 +136,7 @@ export default function QuestionC() {
             }}
             width={"100%"}
             height={"12vh"}
-            variant="solid"
+            variant="unstyled"
             fontSize="1.5em"
             color="grey"
           >
@@ -162,10 +162,10 @@ export default function QuestionC() {
 function renderQuestion(q: Question, input: React.ReactNode) {
   if (q.type !== "number bonds") {
     return (
-      <div style={{ margin: "20 auto", fontSize: "3em" }}>
+      <Box fontSize="3em">
         {q.question}
         {input}
-      </div>
+      </Box>
     );
   }
   // TODO: other question types
@@ -173,18 +173,19 @@ function renderQuestion(q: Question, input: React.ReactNode) {
   // @ts-ignore
   parts = parts.map(part => (part === "?" ? (input as any) : part));
   return (
-    <SimpleGrid columns={2} fontSize="2em" gridTemplateRows="40% 40%">
+    <SimpleGrid columns={2} fontSize="3em" width="60%">
       <Box
         gridColumn="1 / 3"
-        borderBottom="1px solid purple"
+        borderBottom="3px solid lightgray"
         textAlign="center"
+        padding={4}
       >
         {parts[2]}
       </Box>
-      <Box padding={2} borderRight="1px solid purple">
+      <Box padding={4} borderRight="3px solid lightgray" textAlign="right">
         {parts[0]}
       </Box>
-      <Box padding={2}>{parts[1]}</Box>
+      <Box padding={4} textAlign="left">{parts[1]}</Box>
     </SimpleGrid>
   );
 }
