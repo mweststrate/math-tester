@@ -44,12 +44,12 @@ export default function QuestionC() {
     if (newInput.length === ("" + q.answer).length) {
       if (newInput === "" + q.answer) {
         clearTimeout(handleRef.current);
-        toast({
-          title: "Goed!",
-          status: "success",
-          duration: 1000,
-          isClosable: false
-        });
+        // toast({
+        //   title: "Goed!",
+        //   status: "success",
+        //   duration: 1000,
+        //   isClosable: false
+        // });
         update(state => {
           state.score += onTime.current ? 2 : 1;
           selectNextQuestion(state);
