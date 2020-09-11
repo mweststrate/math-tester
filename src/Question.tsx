@@ -56,9 +56,9 @@ export default function QuestionC() {
         })();
       } else {
         toast({
-          title: "Fout :(",
+          title: "Fout. Goede antwoord: " + q.answer,
           status: "error",
-          duration: 1000,
+          duration: 2000,
           isClosable: false
         });
         update(state => {
