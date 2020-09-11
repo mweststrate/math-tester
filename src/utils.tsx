@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 export function useAnimationFrame(deps: any[]) {
   const start = useRef(Date.now());
-  const [_tick, setTick] = useState(0);
+  const setTick = useState(0)[1];
   useEffect(() => {
     let done = false;
     function next() {
@@ -17,6 +17,7 @@ export function useAnimationFrame(deps: any[]) {
     return () => {
       start.current = Date.now();
     };
+  // eslint-disable-next-line
   }, deps);
 
   return Date.now() - start.current;

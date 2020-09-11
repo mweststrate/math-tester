@@ -33,6 +33,7 @@ export default function QuestionC() {
     return () => {
       clearInterval(handleRef.current);
     };
+  // eslint-disable-next-line
   }, [q]);
 
   const onClick = (answer: number) => {
